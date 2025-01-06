@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className={`bg-bgcolor container ${vazirmatn.className}`}>
 
 
-        <div className=" relative">
+        <div className="pt-10 sm:pt-26 pb-22 sm:pb-0 relative !min-h-screen">
           <Header />
           {children}
           <BottomNav />

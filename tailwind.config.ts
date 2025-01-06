@@ -12,6 +12,10 @@ export default {
         center: true,
         padding: '10px'
       },
+      spacing: {
+        22: '88px',
+        26: '104px'
+      },
       colors: {
         bgcolor: '#EBEBEB',
         darkcolor: '#030712',
