@@ -13,7 +13,7 @@ export default {
         padding: '10px'
       },
       colors: {
-        bgcolor: '#e0f2fe',
+        bgcolor: '#EBEBEB',
         darkcolor: '#030712',
         main: "#1E4ABB",
         background: "var(--background)",

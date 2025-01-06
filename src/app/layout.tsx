@@ -1,6 +1,7 @@
 import { Vazirmatn } from "next/font/google";
 import Header from "@/components/layouts/Header/Header";
 import "./globals.css";
+import { BottomNav } from "@/components/layouts/BottomNav/BottomNav";
 
 
 const vazirmatn = Vazirmatn({
@@ -20,6 +21,7 @@ export default function RootLayout({
         <div className=" relative">
           <Header />
           {children}
+          <BottomNav />
         </div>
 
 
