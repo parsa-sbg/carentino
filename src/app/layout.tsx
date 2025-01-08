@@ -2,6 +2,7 @@ import { Vazirmatn } from "next/font/google";
 import Header from "@/components/layouts/Header/Header";
 import "./globals.css";
 import { BottomNav } from "@/components/layouts/BottomNav/BottomNav";
+import { Toaster } from "react-hot-toast";
 
 
 const vazirmatn = Vazirmatn({
@@ -23,7 +24,7 @@ export default function RootLayout({
           {children}
           <BottomNav />
         </div>
-
+        <Toaster />
 
       </body>
     </html>

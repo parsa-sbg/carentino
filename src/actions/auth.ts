@@ -1,3 +1,5 @@
+"use server"
+
 import {OtpModel} from "@/models/Otp"
 import {connectToDataBase} from "@/utils/DB"
 import {phoneSchema} from "@/validations/phoneSchema"
