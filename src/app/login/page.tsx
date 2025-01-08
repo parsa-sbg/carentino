@@ -15,6 +15,7 @@ export default function Login() {
     const [step, setStep] = useState<1 | 2>(1)
     const route = useRouter()
     const { setUser } = useUserStore()
+    const [loading, setLoading] = useState(false)
 
     const submitHandler = async () => {
         const parsedPhone = phoneSchema.safeParse(phone)
@@ -27,8 +28,9 @@ export default function Login() {
             })
             return
         }
-
+        setLoading(true)
         const result = await sentOtpAction(phone)
+
         if (!result.success) {
             toast.error(result.message, {
                 position: 'top-left',
@@ -41,6 +43,8 @@ export default function Login() {
             })
             setStep(2)
         }
+        setLoading(false)
+
     }
 
     const login = async () => {
@@ -55,6 +59,7 @@ export default function Login() {
             })
             return
         }
+        setLoading(true)
 
         const res = await fetch('/api/login', {
             method: 'POST',
@@ -73,6 +78,10 @@ export default function Login() {
 
             case 200: {
                 setUser(data.user)
+                toast.success('ورود با موفقیت انجام شد', {
+                    position: 'top-left',
+                    duration: 1500
+                })
                 route.replace('/dashboard')
                 break
             }
@@ -93,6 +102,7 @@ export default function Login() {
                 break
             }
         }
+        setLoading(false)
 
     }
 
@@ -107,8 +117,30 @@ export default function Login() {
                 }
 
                 {step == 1
-                    ? <button onClick={submitHandler} type="button" className="bg-green-700 hover:bg-green-800 transition-colors duration-200 w-full text-bgcolor py-2 rounded-md px-4">ارسال کد تایید</button>
-                    : <button onClick={login} type="button" className="bg-green-700 hover:bg-green-800 transition-colors duration-200 w-full text-bgcolor py-2 rounded-md px-4">ورود</button>
+                    ? <button disabled={loading} onClick={submitHandler} type="button" className="disabled:hover:bg-gray-400 disabled:bg-gray-400 h-10 bg-green-700 hover:bg-green-800 transition-colors duration-200 w-full text-bgcolor py-2 rounded-md px-4">
+                        {loading
+                            ? (
+                                <div className='flex gap-2 justify-center items-center'>
+                                    <div className='h-2 w-2 bg-main rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                                    <div className='h-2 w-2 bg-main rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                                    <div className='h-2 w-2 bg-main rounded-full animate-bounce'></div>
+                                </div>
+                            )
+                            : 'ارسال کد تایید'}
+
+                    </button>
+
+                    : <button disabled={loading} onClick={login} type="button" className="disabled:hover:bg-gray-400 disabled:bg-gray-400 h-10 bg-green-700 hover:bg-green-800 transition-colors duration-200 w-full text-bgcolor py-2 rounded-md px-4">
+                        {loading
+                            ?
+                            (<div className='flex gap-2 justify-center items-center'>
+                                <div className='h-2 w-2 bg-main rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                                <div className='h-2 w-2 bg-main rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                                <div className='h-2 w-2 bg-main rounded-full animate-bounce'></div>
+                            </div>
+                            )
+                            : 'ورود'}
+                    </button>
                 }
 
             </form>
