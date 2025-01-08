@@ -1,8 +1,24 @@
+"use client"
+import { UserInterface } from "@/models/User";
+import { useUserStore } from "@/zustand/userStore";
+
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
-export const User = () => {
+type props = {
+    user: UserInterface | null
+}
+
+export const User = ({ user: intialUser }: props) => {
+
+
+    const { setUser, user } = useUserStore()
+
+    useEffect(() => {
+        setUser(intialUser)
+    }, [])
+
     return (
         <div className="group relative">
 
@@ -13,8 +29,15 @@ export const User = () => {
 
             <div className="absolute top-full left-0">
                 <div className="max-h-0 overflow-hidden mt-2 group-hover:max-h-20 group-hover:p-3 w-fit relative transition-all duration-300 rounded-lg rounded-tl-sm bg-darkcolor">
-                    <Link className="text-nowrap transition-colors duration-300 hover:text-main" href={'/login'}>ورود/ثبت نام</Link>
+                    {!user
+                        ? (
+                            <Link className="text-nowrap transition-colors duration-300 hover:text-main" href={'/login'}>ورود/ثبت نام</Link>
+                        )
+                        : (
+                            <span className="text-nowrap">{user.phone}</span>
+                        )}
                 </div>
+
             </div>
 
         </div>

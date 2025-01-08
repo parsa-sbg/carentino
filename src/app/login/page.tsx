@@ -2,6 +2,7 @@
 import { sentOtpAction } from "@/actions/auth";
 import { otpSchema } from "@/validations/otpSchema";
 import { phoneSchema } from "@/validations/phoneSchema";
+import { useUserStore } from "@/zustand/userStore";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -13,6 +14,7 @@ export default function Login() {
     const [otp, setOtp] = useState('')
     const [step, setStep] = useState<1 | 2>(1)
     const route = useRouter()
+    const { setUser } = useUserStore()
 
     const submitHandler = async () => {
         const parsedPhone = phoneSchema.safeParse(phone)
@@ -64,11 +66,13 @@ export default function Login() {
                 phone
             })
         })
+        const data = await res.json()
 
 
         switch (res.status) {
 
             case 200: {
+                setUser(data.user)
                 route.replace('/dashboard')
                 break
             }
