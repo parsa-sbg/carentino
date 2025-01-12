@@ -28,13 +28,17 @@ export const User = ({ user: intialUser }: props) => {
             </div>
 
             <div className="absolute top-full left-0">
-                <div className="max-h-0 overflow-hidden mt-2 group-hover:max-h-20 group-hover:p-3 w-fit relative transition-all duration-300 rounded-lg rounded-tl-sm bg-darkcolor">
+                <div className="max-h-0 overflow-hidden mt-2 group-hover:max-h-40 group-hover:p-3 w-fit relative transition-all duration-300 rounded-lg rounded-tl-sm bg-darkcolor">
                     {!user
                         ? (
                             <Link className="text-nowrap transition-colors duration-300 hover:text-main" href={'/login'}>ورود/ثبت نام</Link>
                         )
                         : (
-                            <span className="text-nowrap">{user.phone}</span>
+                            <div className="flex flex-col gap-2">
+                                <span className="text-nowrap pb-1 border-b">{user.phone}</span>
+                                <Link className="text-nowrap transition-colors duration-300 hover:text-main" href={'/dashboard/reservations'}>رزرو های من</Link>
+                                <Link className="text-nowrap transition-colors duration-300 hover:text-main" href={'/dashboard/account'}>اطلاعات حساب</Link>
+                            </div>
                         )}
                 </div>
 
